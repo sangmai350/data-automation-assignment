@@ -1,0 +1,35 @@
+{
+  "name": "automation-test",
+  "description": "Automation Test",
+  "version": "1.0.0",
+  "author": "Sang Mai",
+  "private": true,
+  "scripts": {
+    "e2e": "protractor protractor.conf.js",
+    "e2e:local": "protractor protractor-local.conf.js",
+    "wbd-update": "webdriver-manager update"
+  },
+  "dependencies": {
+    "convert-csv-to-array": "^1.0.3",
+    "faker": "^4.1.0",
+    "jasmine-spec-reporter": "^4.2.1",
+    "lodash": "^4.17.4",
+    "log4js": "^4.1.0",
+    "log4js-protractor-appender": "^1.1.2",
+    "moment": "^2.19.1",
+    "protractor": "^5.4.3",
+    "request": "^2.88.2",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2",
+    "webdriver-manager": "^12.1.7"
+  },
+  "devDependencies": {
+    "@types/faker": "^4.1.11",
+    "@types/jasmine": "^2.8.6",
+    "@types/lodash": "^4.14.74",
+    "@types/node": "^9.6.0",
+    "@types/request": "^2.48.3",
+    "html-dnd": "^1.2.1"
+  }
+}
