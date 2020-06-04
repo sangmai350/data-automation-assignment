@@ -1,6 +1,8 @@
 'use strict';
 const log4js = require('log4js');
 let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+var nodemailer = require('nodemailer');
+var q = require('q');
 
 exports.config = {
   // seleniumAddress: 'http://localhost:4444/wd/hub',
@@ -56,10 +58,14 @@ exports.config = {
   onPrepare: function () {
     browser.logger = log4js.getLogger('protractorLog4js');
 
-    let fs = require('fs');  
-    function rmDir (dirPath) {
-      try { var files = fs.readdirSync(dirPath); }
-      catch(e) { return; }
+    let fs = require('fs');
+
+    function rmDir(dirPath) {
+      try {
+        var files = fs.readdirSync(dirPath);
+      } catch (e) {
+        return;
+      }
       if (files.length > 0)
         for (var i = 0; i < files.length; i++) {
           var filePath = dirPath + '/' + files[i];
@@ -70,7 +76,7 @@ exports.config = {
         }
     }
 
-     // delete ./data  
+    // delete ./data  
     rmDir(process.cwd() + '/src/data');
 
     jasmine.getEnv().addReporter(
@@ -93,5 +99,34 @@ exports.config = {
       .maximize();
     // .setSize(1920, 1080);
     // browser.ignoreSynchronization = true;
+  },
+  onComplete: function () {
+    return q.fcall(function () {
+      return new Promise(function (fulfill, reject) {
+        var transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'toants.301@gmail.com',
+            pass: 'toanking12'
+          }
+        });
+        var mailOptions = {
+          from: '"TestMail" <toants.301@gmail.com> ',
+          to: 'sangmai350@gmail.com',
+          subject: 'Test_Report',
+          text: 'Test_Report of app',
+          attachments: [{
+            'path': 'src/data/result-data.csv',
+          }]
+        };
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+      });
+    }).delay(5000);
   }
-};
+}
