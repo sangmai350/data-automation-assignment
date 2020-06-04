@@ -10,6 +10,9 @@
     "wbd-update": "webdriver-manager update"
   },
   "dependencies": {
+    "@types/nodemailer": "^6.4.0",
+    "@types/nodemailer-direct-transport": "^1.0.31",
+    "@types/nodemailer-smtp-transport": "^2.7.4",
     "convert-csv-to-array": "^1.0.3",
     "faker": "^4.1.0",
     "jasmine-spec-reporter": "^4.2.1",
@@ -17,6 +20,7 @@
     "log4js": "^4.1.0",
     "log4js-protractor-appender": "^1.1.2",
     "moment": "^2.19.1",
+    "nodemailer": "^6.4.8",
     "protractor": "^5.4.3",
     "request": "^2.88.2",
     "ts-node": "^5.0.1",
@@ -28,7 +32,7 @@
     "@types/faker": "^4.1.11",
     "@types/jasmine": "^2.8.6",
     "@types/lodash": "^4.14.74",
-    "@types/node": "^9.6.0",
+    "@types/node": "^9.6.56",
     "@types/request": "^2.48.3",
     "html-dnd": "^1.2.1"
   }
