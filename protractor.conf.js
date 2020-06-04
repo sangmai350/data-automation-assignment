@@ -56,9 +56,7 @@ exports.config = {
   onPrepare: function () {
     browser.logger = log4js.getLogger('protractorLog4js');
 
-    // delete ./data/test.csv before tests are run
-
-    var fs = require('fs');  
+    let fs = require('fs');  
     function rmDir (dirPath) {
       try { var files = fs.readdirSync(dirPath); }
       catch(e) { return; }
@@ -72,6 +70,7 @@ exports.config = {
         }
     }
 
+     // delete ./data  
     rmDir(process.cwd() + '/src/data');
 
     jasmine.getEnv().addReporter(

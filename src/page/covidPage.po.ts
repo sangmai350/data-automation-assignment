@@ -9,18 +9,39 @@ export class CovidPage {
       header: false
     });
 
+
+    arrayofObjectsWithoutHeader.sort((item1, item2) => {
+      return new Date(item1.date) > new Date(item2.date) 
+        ? 1 
+        : (new Date(item1.date) < new Date(item2.date) ? -1 : 0);
+    });
+
     return arrayofObjectsWithoutHeader;
   }
 
   async getLastDayFromData(data) {
-    const lastDay = data[data.length -1];
-    const resultObject = {
-      country: lastDay.location,
-      newCase: lastDay.new_cases,
-      newDeaths: lastDay.new_deaths
-    };
+    let csvFile = '';
 
-    return Object.keys(resultObject).toString() +  `\r\n` + Object.values(resultObject).toString();
+    let lastDay = data[data.length - 1].date;
+    let lastDayOfCountrys = data.filter(item => item.date === lastDay);
+    let internationArray = data.filter(item => item.location === 'International');
+    console.log(internationArray[internationArray.length - 1]);
+    lastDayOfCountrys.push(internationArray[internationArray.length - 1]);
+
+    for (let i = 0; i < lastDayOfCountrys.length; i++) {
+      let object = {
+        country: lastDayOfCountrys[i].location,
+        newCase: lastDayOfCountrys[i].new_cases,
+        newDeaths: lastDayOfCountrys[i].new_deaths,
+      };
+      if ( i === 0 ) {
+        csvFile = Object.keys(object).toString() + `\r\n`;
+      }
+      csvFile = csvFile + Object.values(object).toString() + `\r\n`;
+      
+    }
+
+    return csvFile;
   }
 
   async writeDataToCSVFile(fileContent) {
